@@ -2,7 +2,15 @@ using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
-    public float rotationSpeed = 100;
+    public Vector3 rotationSpeed;
+    public void Rotation()
+    {
+        transform.Rotate(new
+            Vector3(
+            rotationSpeed.x * Time.deltaTime,
+            rotationSpeed.y * Time.deltaTime,
+            rotationSpeed.z * Time.deltaTime));
+    }
 
     public virtual void Picked()
     {
@@ -10,11 +18,7 @@ public class Pickup : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    public void Rotation()
-    {
-        transform.Rotate(new 
-            Vector3(rotationSpeed * Time.deltaTime, 0f, 0f));
-    }
+    
 
     public void Update()
     {
