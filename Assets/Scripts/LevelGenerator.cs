@@ -6,6 +6,28 @@ public class LevelGenerator : MonoBehaviour
     public ColorToPrefab[] colorMappings;
     public float offset = 5f;
 
+    public Material mainMaterial;
+    public Material additionalMaterial;
+
+    public void ColorChildren()
+    {
+        foreach (Transform child in transform)
+        {
+            if(child.tag == "Wall")
+            {
+                if (Random.Range(0, 3)==0)
+                {
+                    child.gameObject.GetComponent<Renderer>().material = additionalMaterial;
+                }
+                else
+                {
+                    child.gameObject.GetComponent<Renderer>().material = mainMaterial;
+
+                }
+            }
+        }
+    }
+
     void GenerateTile(int x, int z)
     {
         Color pixelColor = map.GetPixel(x, z);
@@ -20,7 +42,7 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    void GenerateLabirynth()
+    public void GenerateLabirynth()
     {
         for (int x=0; x<map.width; x++)
         {
@@ -29,5 +51,6 @@ public class LevelGenerator : MonoBehaviour
                 GenerateTile(x, z);
             }
         }
+        ColorChildren();
     }
 }
